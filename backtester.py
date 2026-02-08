@@ -1,5 +1,5 @@
 """
-A minimal, readable portfolio backtester (NO DB, NO fees, NO slippage, NO plotting).
+A minimal, readable portfolio backtester.
 
 - Uses daily close prices.
 - Long-only: holds tickers with signal==1, otherwise cash.
