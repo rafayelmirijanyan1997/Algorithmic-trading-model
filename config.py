@@ -11,19 +11,8 @@ POLYGON_API_KEY = "pXfexlW5Gp_vfwuT1aDRFYFWQjMhmyKc"
 # Database file path
 DATABASE_PATH = "stock_data.db"
 
+STOCK_TICKERS = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META']
 
-
-# List of stock tickers to track:
-STOCK_TICKERS = [
-    'AAPL',   # Apple
-    'MSFT',   # Microsoft
-    'GOOGL',  # Google
-    'AMZN',   # Amazon
-    'TSLA',   # Tesla
-    'META',   # Meta (Facebook)
-    'NVDA',   # NVIDIA
-    'NFLX',   # Netflix
-]
 
 # Alternative portfolio options:
 # Blue chip stocks:

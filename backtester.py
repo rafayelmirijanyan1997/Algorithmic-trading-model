@@ -176,11 +176,13 @@ class Backtester:
             # Record portfolio value
             portfolio_value = self._calculate_portfolio_value_multi(all_data, date)
             
+
             positions_value = sum(
-                self.positions.get(ticker, 0) * all_data[ticker].loc[date, 'close']
-                for ticker in tickers
-                if date in all_data[ticker].index
+                self.positions.get(ticker, 0) * df.loc[date, 'close']
+                for ticker, df in all_data.items()
+                if date in df.index
             )
+
             
             self.portfolio_value_history.append({
                 'date': date,
