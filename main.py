@@ -1,11 +1,4 @@
-"""
-Run the backtest end-to-end (API fetch -> backtest -> print end balance)
 
-Steps:
-  1) pip install -r requirements.txt
-  2) Put your Polygon key in config.py (POLYGON_API_KEY = "...")
-  3) python main.py
-"""
 
 from __future__ import annotations
 
@@ -17,7 +10,7 @@ from backtester import backtest_equal_weight_long_only
 def main() -> int:
     # Read key directly from config.py
     if (not getattr(config, "POLYGON_API_KEY", None)) or ("PUT_YOUR_POLYGON_KEY_HERE" in str(config.POLYGON_API_KEY)):
-        print("ERROR: POLYGON_API_KEY is missing. Set it directly in config.py")
+        print("POLYGON_API_KEY is missing. Set it in config.py")
         return 2
 
     all_data = fetch_all(
@@ -37,7 +30,7 @@ def main() -> int:
         strategy=config.STRATEGY,
     )
 
-    print("\n===== BACKTEST RESULT =====")
+    print("\n____BACKTEST RESULT____")
     print(f"Strategy:        {config.STRATEGY}")
     print(f"Tickers:         {', '.join(config.TICKERS)}")
     print(f"Date range:      {config.START_DATE} → {config.END_DATE}")
@@ -45,7 +38,7 @@ def main() -> int:
     print(f"Final Balance:   ${res.final_value:,.2f}")
     print(f"Net Profit:      ${res.final_value - config.INITIAL_CAPITAL:,.2f}")
     print(f"Total Return:    {res.total_return_pct:.2f}%")
-    print("===========================\n")
+    print("_______________\n")
 
     # Optional: save equity curve for inspection
     res.history.to_csv("equity_curve.csv")

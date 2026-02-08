@@ -1,8 +1,5 @@
-# config.py
 
 INITIAL_CAPITAL = 10_000.0
-
-#TICKERS = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "META"]
 
 
 TICKERS = [

@@ -1,16 +1,4 @@
-"""
-A minimal, readable portfolio backtester.
 
-- Uses daily close prices.
-- Long-only: holds tickers with signal==1, otherwise cash.
-- Allocates equally across eligible tickers each day.
-- Rebalances daily (simple + deterministic).
-
-Output:
-- Equity curve (history DataFrame)
-- final_value
-- total_return_pct
-"""
 
 from __future__ import annotations
 from dataclasses import dataclass
@@ -56,27 +44,27 @@ def backtest_equal_weight_long_only(
     cash = float(initial_capital)
     shares = {ticker: 0.0 for ticker in close_df.columns}
 
-    # Detailed trade blotter (one row per executed buy/sell)
+
     trades: list[dict] = []
 
     rows = []
 
     for dt, prices in close_df.iterrows():
-        # Which tickers do we want to hold today?
+        # Which tickers to hold
         eligible = [t for t in close_df.columns if sig_df.loc[dt, t] == 1]
 
-        # Current portfolio value at market prices
+        # Current portfolio value
         holdings_value = sum(shares[t] * prices[t] for t in close_df.columns)
         port_value = cash + holdings_value
 
-        # Target: equal weight across eligible, else all cash
+
         target_shares = {t: 0.0 for t in close_df.columns}
         if eligible:
             target_value_each = port_value / len(eligible)
             for t in eligible:
                 target_shares[t] = target_value_each / prices[t]
 
-        # Rebalance: trade to target (NO fees/slippage)
+        # Rebalance: trade to target 
         for t in close_df.columns:
             delta = target_shares[t] - shares[t]
             if abs(delta) < 1e-12:
@@ -86,7 +74,7 @@ def backtest_equal_weight_long_only(
                 # BUY
                 cost = delta * prices[t]
                 if cost > cash:
-                    # Scale buy down to available cash
+
                     delta = cash / prices[t]
                     cost = delta * prices[t]
                 cash -= cost
@@ -105,10 +93,10 @@ def backtest_equal_weight_long_only(
                     }
                 )
             else:
-                # SELL
+
                 proceeds = (-delta) * prices[t]
                 cash += proceeds
-                shares[t] += delta  # delta is negative
+                shares[t] += delta 
 
                 trades.append(
                     {
@@ -123,7 +111,7 @@ def backtest_equal_weight_long_only(
                     }
                 )
 
-        # Record end-of-day portfolio value
+        # end-of-day portfolio value
         holdings_value = sum(shares[t] * prices[t] for t in close_df.columns)
         port_value = cash + holdings_value
 
@@ -135,8 +123,7 @@ def backtest_equal_weight_long_only(
             "num_positions": sum(1 for t in close_df.columns if shares[t] > 1e-12),
         }
 
-        # Maintain a record of position sizes (shares held) by ticker each day
-        # so you can inspect how holdings evolve over time.
+
         for t in close_df.columns:
             row[f"shares_{t}"] = float(shares[t])
 

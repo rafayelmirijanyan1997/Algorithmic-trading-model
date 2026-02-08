@@ -1,7 +1,4 @@
-"""
-Fetch OHLCV data from Polygon and return pandas DataFrames (no DB).
-Optionally caches responses to CSV to speed up repeated runs.
-"""
+
 from __future__ import annotations
 import os
 from pathlib import Path

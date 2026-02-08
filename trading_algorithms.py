@@ -1,6 +1,4 @@
 """
-Signal generation (returns a Series of {-1, 0, 1}).
-The backtester below uses a simple long-only interpretation:
   signal == 1  -> eligible to hold
   signal <= 0  -> do not hold (sell / stay in cash)
 """
@@ -23,7 +21,7 @@ def rsi_signal(close: pd.Series, period: int = 14, oversold: float = 30, overbou
     sig = pd.Series(0, index=close.index, dtype=int)
     sig[rsi < oversold] = 1
     sig[rsi > overbought] = -1
-    # If neutral, keep 0 (meaning "no position")
+   
     return sig
 
 def macd_signal(close: pd.Series, fast: int = 12, slow: int = 26, signal: int = 9) -> pd.Series:
@@ -52,7 +50,7 @@ def hybrid_signal(close: pd.Series) -> pd.Series:
     s4 = bollinger_signal(close)
 
     vote = s1.add(s2, fill_value=0).add(s3, fill_value=0).add(s4, fill_value=0)
-    # If votes positive -> 1, else 0 (stay out). We keep it long-only for simplicity.
+    # If votes positive -> 1, else 0 (stay out). keep it long-only for simplicity.
     return (vote > 0).astype(int)
 
 def make_signal(close: pd.Series, strategy: str) -> pd.Series:
