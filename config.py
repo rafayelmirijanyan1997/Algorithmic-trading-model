@@ -2,7 +2,13 @@
 
 INITIAL_CAPITAL = 10_000.0
 
-TICKERS = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "META"]
+#TICKERS = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "META"]
+
+
+TICKERS = [
+    "NVDA", "TSLA", "AMD", "META", "COIN",
+    "PLTR", "SMCI", "ARM", "AVGO"
+]
 
 START_DATE = "2022-01-01"
 END_DATE = "2024-12-31"
