@@ -22,6 +22,7 @@ from trading_algorithms import make_signal
 @dataclass
 class BacktestResult:
     history: pd.DataFrame
+    trades: pd.DataFrame
     final_value: float
     total_return_pct: float
 
@@ -55,6 +56,9 @@ def backtest_equal_weight_long_only(
     cash = float(initial_capital)
     shares = {ticker: 0.0 for ticker in close_df.columns}
 
+    # Detailed trade blotter (one row per executed buy/sell)
+    trades: list[dict] = []
+
     rows = []
 
     for dt, prices in close_df.iterrows():
@@ -87,29 +91,69 @@ def backtest_equal_weight_long_only(
                     cost = delta * prices[t]
                 cash -= cost
                 shares[t] += delta
+
+                trades.append(
+                    {
+                        "date": dt,
+                        "ticker": t,
+                        "side": "BUY",
+                        "shares": float(delta),
+                        "price": float(prices[t]),
+                        "notional": float(cost),
+                        "cash_after": float(cash),
+                        "shares_after": float(shares[t]),
+                    }
+                )
             else:
                 # SELL
                 proceeds = (-delta) * prices[t]
                 cash += proceeds
                 shares[t] += delta  # delta is negative
 
+                trades.append(
+                    {
+                        "date": dt,
+                        "ticker": t,
+                        "side": "SELL",
+                        "shares": float(-delta),
+                        "price": float(prices[t]),
+                        "notional": float(proceeds),
+                        "cash_after": float(cash),
+                        "shares_after": float(shares[t]),
+                    }
+                )
+
         # Record end-of-day portfolio value
         holdings_value = sum(shares[t] * prices[t] for t in close_df.columns)
         port_value = cash + holdings_value
 
-        rows.append(
-            {
-                "date": dt,
-                "cash": cash,
-                "holdings_value": holdings_value,
-                "portfolio_value": port_value,
-                "num_positions": sum(1 for t in close_df.columns if shares[t] > 1e-12),
-            }
-        )
+        row = {
+            "date": dt,
+            "cash": cash,
+            "holdings_value": holdings_value,
+            "portfolio_value": port_value,
+            "num_positions": sum(1 for t in close_df.columns if shares[t] > 1e-12),
+        }
+
+        # Maintain a record of position sizes (shares held) by ticker each day
+        # so you can inspect how holdings evolve over time.
+        for t in close_df.columns:
+            row[f"shares_{t}"] = float(shares[t])
+
+        rows.append(row)
 
     hist = pd.DataFrame(rows).set_index("date")
 
     final_value = float(hist["portfolio_value"].iloc[-1])
     total_return_pct = (final_value / initial_capital - 1.0) * 100.0
 
-    return BacktestResult(history=hist, final_value=final_value, total_return_pct=total_return_pct)
+    trades_df = pd.DataFrame(trades)
+    if not trades_df.empty:
+        trades_df = trades_df.sort_values(["date", "ticker"]).reset_index(drop=True)
+
+    return BacktestResult(
+        history=hist,
+        trades=trades_df,
+        final_value=final_value,
+        total_return_pct=total_return_pct,
+    )

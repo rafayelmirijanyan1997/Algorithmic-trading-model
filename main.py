@@ -51,6 +51,10 @@ def main() -> int:
     res.history.to_csv("equity_curve.csv")
     print("Saved equity curve to equity_curve.csv")
 
+    # Optional: save a trade blotter (one row per executed buy/sell)
+    res.trades.to_csv("trades.csv", index=False)
+    print("Saved trade blotter to trades.csv")
+
     return 0
 
 
