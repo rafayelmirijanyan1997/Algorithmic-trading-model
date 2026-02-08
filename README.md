@@ -1,16 +1,11 @@
 # One-File Algorithmic Trading Backtester (Polygon API, No DB, No .env, No Fees)
 
-This project is a **single Python file** that:
+This project:
 - Fetches historical daily prices from **Polygon API**
 - Runs a **long-only, equal-weight** strategy (daily rebalance)
-- Prints the **final balance** starting from **$10,000**
+- Prints the **final balance** starting from $10,000
 - Saves an optional `equity_curve.csv`
 
-✅ No database  
-✅ No `.env` file  
-✅ No environment variables  
-✅ No fees / slippage  
-✅ No extra modules/files needed (besides dependencies)
 
 ---
 
@@ -30,9 +25,9 @@ Create an account and get your key from Polygon.
 
 ---
 
-## 3) Put your API key inside the script (NO .env)
+## 3) Put your API key inside the script 
 
-Open your Python file (example name: `one_file_backtest.py`) and edit this line:
+Open config.py Python file edit this line:
 
 ```python
 POLYGON_API_KEY = "PUT_YOUR_POLYGON_KEY_HERE"
@@ -44,9 +39,6 @@ Replace with your real key:
 POLYGON_API_KEY = "YOUR_REAL_KEY"
 ```
 
-⚠️ **Important**  
-If your GitHub repo is public, **do NOT commit your real API key**.  
-Use a placeholder before pushing.
 
 ---
 
@@ -55,7 +47,7 @@ Use a placeholder before pushing.
 From the same folder as your script:
 
 ```bash
-python one_file_backtest.py
+python main.py.py
 ```
 
 ---
@@ -73,7 +65,7 @@ Total Return:    XX.XX%
 ===========================
 ```
 
-The **Final Balance** is the actual end portfolio value.
+The Final Balance is the actual end portfolio value.
 
 ---
 
@@ -101,7 +93,7 @@ You can delete these anytime — it won’t break the code.
 ## Troubleshooting
 
 ### “ERROR: Missing POLYGON_API_KEY”
-You didn’t paste your key into the script.
+You didn’t paste your key into the config.py.
 
 ### “No Polygon data returned…”
 Your ticker/date range may be invalid, or your API plan may limit the range.
