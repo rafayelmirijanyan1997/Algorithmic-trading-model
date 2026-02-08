@@ -1,4 +1,3 @@
-# One-File Algorithmic Trading Backtester (Polygon API, No DB, No .env, No Fees)
 
 This project:
 - Fetches historical daily prices from **Polygon API**
