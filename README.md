@@ -1,12 +1,12 @@
 # Stock Data Collection System using Polygon.io
 ## DSCI-560 Lab 4 - Data Collection Module
 
-### 📋 Overview
+### Overview
 This system collects, cleans, and stores real-time stock market data using the Polygon.io API. It provides a foundation for implementing algorithmic trading strategies as required in Lab 4.
 
 ---
 
-## 🚀 Quick Start Guide
+## Quick Start Guide
 
 ### Step 1: Get Your Free Polygon.io API Key
 
@@ -72,7 +72,7 @@ Then select option 5 for the full pipeline.
 
 ---
 
-## 📁 Project Structure
+## Structure
 
 ```
 lab4-stock-trading/
@@ -88,7 +88,7 @@ lab4-stock-trading/
 
 ---
 
-## 💾 Database Schema
+## Database Schema
 
 The system creates 3 tables:
 
@@ -122,7 +122,7 @@ Records all buy/sell operations:
 
 ---
 
-## 🔧 Usage Examples
+## Usage Examples
 
 ### Example 1: Basic Data Collection
 
@@ -199,7 +199,7 @@ collector.close()
 
 ---
 
-## 📊 Data Cleaning Features
+## Data Cleaning Features
 
 The system automatically:
 
@@ -215,7 +215,7 @@ The system automatically:
 
 ---
 
-## 🎯 Next Steps for Lab 4
+##  Next Steps
 
 After collecting your data, you'll need to:
 
@@ -238,7 +238,7 @@ Calculate:
 
 ---
 
-## 🔍 Troubleshooting
+## Troubleshooting
 
 ### Problem: "Rate limit exceeded"
 **Solution**: The free tier allows 5 calls/minute. The script automatically waits 12 seconds between calls. If you still see this error, increase the wait time in `stock_data_collector.py`:
@@ -266,7 +266,7 @@ time.sleep(15)  # Increase from 12 to 15 seconds
 
 ---
 
-## 📚 References for Lab 4
+## References
 
 ### Technical Analysis Resources:
 1. [Investopedia - Moving Averages](https://www.investopedia.com/terms/m/movingaverage.asp)
@@ -280,19 +280,11 @@ time.sleep(15)  # Increase from 12 to 15 seconds
 
 ---
 
-## 👥 Team Collaboration Tips
 
-1. **Version Control**: Use Git to track changes
-2. **Task Division**: 
-   - Person 1: Data collection & cleaning
-   - Person 2: Algorithm implementation
-   - Person 3: Performance metrics & visualization
-3. **Daily Meetings**: Document in separate file as required
-4. **Code Review**: Review each other's code before integration
 
 ---
 
-## ⚡ Performance Tips
+##  Performance Tips
 
 1. **Batch Processing**: Collect data for all stocks in one session
 2. **Caching**: The database serves as a cache - don't re-download existing data
@@ -301,7 +293,7 @@ time.sleep(15)  # Increase from 12 to 15 seconds
 
 ---
 
-## 📝 Example Output
+## Example Output
 
 ```
 ==================================================================
@@ -337,7 +329,7 @@ DATA COLLECTION SUMMARY
 
 ---
 
-## 🤝 Support
+## Support
 
 If you encounter issues:
 1. Check the troubleshooting section
@@ -348,10 +340,10 @@ If you encounter issues:
 
 ---
 
-## 📄 License
+##  License
 
 This code is provided for educational purposes for DSCI-560 Lab 4.
 
 ---
 
-**Good luck with your lab! 🚀**
+
