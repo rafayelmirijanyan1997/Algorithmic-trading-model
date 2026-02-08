@@ -7,7 +7,7 @@ INITIAL_CAPITAL = 10_000.0
 
 TICKERS = [
     "NVDA", "TSLA", "AMD", "META", "COIN",
-    "PLTR", "SMCI", "ARM", "AVGO"
+    "PLTR", "ARM", "AVGO"
 ]
 
 START_DATE = "2022-01-01"
