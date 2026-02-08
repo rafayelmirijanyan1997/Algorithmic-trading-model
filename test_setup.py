@@ -1,6 +1,5 @@
 """
-Test Script - Verify Your Setup
-DSCI-560 Lab 4
+
 
 Run this script to verify your setup is working correctly
 """
